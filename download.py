@@ -64,7 +64,7 @@ def process_titles(input_csv, output_csv):
             results.append({"id": project_id, "osf_title": title, "status": "no title", "pdf_url": ""})
             continue
 
-        print(f"\n🔍 [{idx+1}/{len(df)}] Searching: {title}")
+        print(f"\n [{idx+1}/{len(df)}] Searching: {title}")
         pdf_url, status = search_paper_pdf(title)
 
         if status == "downloaded" and pdf_url:
