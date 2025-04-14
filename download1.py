@@ -7,14 +7,11 @@ import random
 # Your CORE API Key
 CORE_API_KEY = ""
 
-# Endpoint
 CORE_SEARCH_API = "https://api.core.ac.uk/v3/search/works"
 
-# Create folder to save PDFs
 PDF_DIR = "papers1"
 os.makedirs(PDF_DIR, exist_ok=True)
 
-# Search paper using CORE API
 def search_core_pdf(title, retries=5):
     headers = {
         "Authorization": f"Bearer {CORE_API_KEY}"
@@ -31,7 +28,7 @@ def search_core_pdf(title, retries=5):
             response = requests.get(CORE_SEARCH_API, headers=headers, params=params)
             if response.status_code == 429:
                 wait = 5 * (2 ** attempt)
-                print(f"🚫 CORE API rate limit – Retrying in {wait} seconds...")
+                print(f" CORE API rate limit – Retrying in {wait} seconds...")
                 time.sleep(wait)
                 continue
             response.raise_for_status()
@@ -46,7 +43,7 @@ def search_core_pdf(title, retries=5):
             return pdf_url, "no pdf" if not pdf_url else "downloaded"
 
         except Exception as e:
-            print(f"❌ Error on attempt {attempt + 1} for title '{title}': {e}")
+            print(f" Error on attempt {attempt + 1} for title '{title}': {e}")
             time.sleep(3)
 
     return None, "error"
@@ -61,7 +58,7 @@ def download_pdf(pdf_url, filename):
                 f.write(chunk)
         return True
     except Exception as e:
-        print(f"❌ Download failed for {filename} from {pdf_url}: {e}")
+        print(f" Download failed for {filename} from {pdf_url}: {e}")
         return False
 
 # Main function
@@ -77,7 +74,7 @@ def download_papers_from_core(input_csv, output_csv):
             results.append({"id": project_id, "osf_title": title, "status": "no title", "pdf_url": ""})
             continue
 
-        print(f"\n🔍 [{idx + 1}/{len(df)}] Searching: {title}")
+        print(f"\n [{idx + 1}/{len(df)}] Searching: {title}")
         pdf_url, status = search_core_pdf(title)
 
         if status == "downloaded" and pdf_url:
@@ -93,12 +90,12 @@ def download_papers_from_core(input_csv, output_csv):
         })
 
         sleep_time = random.uniform(3, 6)
-        print(f"⏳ Sleeping for {sleep_time:.2f} seconds...\n")
+        print(f" Sleeping for {sleep_time:.2f} seconds...\n")
         time.sleep(sleep_time)
 
     result_df = pd.DataFrame(results)
     result_df.to_csv(output_csv, index=False)
-    print(f"\n✅ All results saved to: {output_csv}")
+    print(f"\n All results saved to: {output_csv}")
 
 if __name__ == "__main__":
     download_papers_from_core("remaining.csv", "remaining_core_downloaded.csv")
