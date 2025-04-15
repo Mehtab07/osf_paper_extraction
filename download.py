@@ -4,7 +4,7 @@ import os
 import time
 import random
 
-PDF_DIR = "papers"
+PDF_DIR = "semantic-papers"
 os.makedirs(PDF_DIR, exist_ok=True)
 
 SEARCH_API = "https://api.semanticscholar.org/graph/v1/paper/search"

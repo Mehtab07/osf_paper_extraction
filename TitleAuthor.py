@@ -3,7 +3,6 @@ import requests
 import time
 import random
 
-# Generic function to handle retries with exponential backoff
 def make_request_with_retry(url, max_retries=5, base_delay=1):
     for attempt in range(max_retries):
         response = requests.get(url)
@@ -43,7 +42,7 @@ def get_contributors(project_id):
             
             url = data.get("links", {}).get("next", None)
             if url:
-                time.sleep(1)  # Delay before fetching next page
+                time.sleep(1) 
         
         print(f"Found {len(contributors)} contributors for {project_id}")
         return contributors if contributors else ["No contributors found"]
