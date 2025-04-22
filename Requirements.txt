@@ -1,4 +1,6 @@
 requests
+PyMuPDF>=1.23.9
+openai>=1.14.3
 pandas
 random
 time
