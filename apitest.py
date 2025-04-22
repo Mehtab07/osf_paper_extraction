@@ -3,7 +3,6 @@ import re
 import fitz  # PyMuPDF
 from openai import OpenAI
 
-
 def extract_text_from_pdf(pdf_path: str) -> str:
     doc = fitz.open(pdf_path)
     full_text = "".join(page.get_text() for page in doc)
@@ -30,7 +29,7 @@ def save_sections_to_markdown(headers, sections, output_path="output_sections.md
             f.write(f"## {header.strip()}\n\n{content.strip()}\n\n")
 
 
-def summarize_text_with_openai(text: str, api_key: str, model="gpt-4.1", max_tokens=500) -> str:
+def summarize_text_with_openai(text: str, api_key: str, model="gpt-4.1", max_tokens=5000) -> str:
     client = OpenAI(api_key=api_key)
     response = client.chat.completions.create(
         model=model,
@@ -66,7 +65,7 @@ def pipeline(pdf_path: str, api_key: str, section_to_summarize=None, output_mark
             text_to_summarize = f.read()
 
     summary = summarize_text_with_openai(text_to_summarize, api_key)
-    print(f"\n📌 Summary of section: {section_to_summarize or 'Full Paper'}\n")
+    print(f"\n Summary of section: {section_to_summarize or 'Full Paper'}\n")
     print(summary)
     return summary
 
@@ -75,5 +74,5 @@ if __name__ == "__main__":
     PDF_PATH = "test/2sz48.pdf"
     API_KEY = ""
 
-    SECTION = "Conclusions"  # Or None for full paper
+    SECTION = "Results"  # Or None for full paper
     pipeline(PDF_PATH, API_KEY, section_to_summarize=SECTION)
