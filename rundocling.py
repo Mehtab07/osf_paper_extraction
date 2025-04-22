@@ -3,7 +3,12 @@ from docling.document_converter import DocumentConverter
 source = "test/2sz48.pdf"  # document per local path or URL
 converter = DocumentConverter()
 result = converter.convert(source)
-print(result.document.export_to_markdown())  # output: "## Docling Technical Report[...]"
+markdown_content = result.document.export_to_markdown()
+
+with open("docling.md","w", encoding="utf-8") as file:
+    file.write(markdown_content)
+
+print("Markdown content saved to docling.md")  
 
 # Markdown file to save
 # output_path = "paper_output.md"
