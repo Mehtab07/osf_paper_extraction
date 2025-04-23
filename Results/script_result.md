@@ -1644,7 +1644,9 @@ should seek to identify if this principle could also be ex-
 tended to present likelihood and size in a single graphic or
 if it would disadvantage users with low graphical literacy.
 4.3
-Limitations
+
+## Limitations
+
 The participant sample in this study demonstrates trends
 consistent with previous surveys of backcountry recreation
 users. A high proportion of university-educated, male, back-

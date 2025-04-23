@@ -13,7 +13,7 @@ def extract_text_from_pdf(pdf_path: str) -> str:
 def split_text_into_sections(text: str, headers=None) -> list:
     if headers is None:
         headers = [
-            "Abstract", "Introduction", "Related Work", "Method", "Methods",
+            "Abstract", "Introduction", "Related Work", "Method", "Methods","Limitations",
             "Results", "Discussion", "Conclusion","Conclusions", "References"
         ]
     pattern = "|".join([rf"\n\s*{header}\s*\n" for header in headers])
@@ -23,7 +23,7 @@ def split_text_into_sections(text: str, headers=None) -> list:
     return section_dict
 
 
-def save_sections_to_markdown(headers, sections, output_path="output_sections.md"):
+def save_sections_to_markdown(headers, sections, output_path="Results/script_result.md"):
     with open(output_path, "w", encoding="utf-8") as f:
         for header, content in zip(headers, sections):
             f.write(f"## {header.strip()}\n\n{content.strip()}\n\n")
@@ -61,7 +61,7 @@ def pipeline(pdf_path: str, api_key: str, section_to_summarize=None, output_mark
             return
         text_to_summarize = f"{section_to_summarize}\n\n{section_content}"
     else:
-        with open("output_sections.md", "r", encoding="utf-8") as f:
+        with open("Results/script_result.md", "r", encoding="utf-8") as f:
             text_to_summarize = f.read()
 
     summary = summarize_text_with_openai(text_to_summarize, api_key)

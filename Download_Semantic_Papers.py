@@ -89,6 +89,6 @@ def process_titles(input_csv, output_csv):
     print(f"\n All results saved to: {output_csv}")
 
 if __name__ == "__main__":
-    input_csv = "my_id_with_titles.csv"
-    output_csv = "semantic_search_results.csv"
+    input_csv = "CSVs/Id_Title_Contributors.csv"
+    output_csv = "CSVs/semantic_search_results.csv"
     process_titles(input_csv, output_csv)
