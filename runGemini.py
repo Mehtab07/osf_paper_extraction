@@ -31,7 +31,7 @@ def save_sections_to_markdown(headers, sections, output_path="Results/script_res
 
 
 def summarize_text_with_openai(text: str, api_key: str, section_to_summarize=None, max_tokens=5000) -> str:
-    client = genai.Client(api_key="REMOVED_API_KEY")
+    client = genai.Client(api_key=api_key)
     response = client.models.generate_content(
     model="gemini-2.0-flash", contents=f"Summarize the following text. It is from the '{section_to_summarize or 'Full Paper'}' section of a research paper. Provide a concise and non-repetitive summary:\n\n{text}")
     
