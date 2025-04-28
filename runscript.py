@@ -36,7 +36,7 @@ def summarize_text_with_openai(text: str, api_key: str, section_to_summarize=Non
         messages=[
             {"role": "system", "content": "You are a helpful assistant."},
             # {"role": "user", "content": f"Summarize the following research paper:\n\n{text}"},
-            {"role": "user", "content": f"Summarize the following text. It is from the '{section_to_summarize or 'Full Paper'}' section of a research paper. Provide a concise and non-repetitive summary:\n\n{text}"},
+            {"role": "user", "content": f"Summarize the following text. It contains the '{section_to_summarize or 'Full Paper'}' of a research paper. Provide a concise and crux of overall research:\n\n{text}"},
 
         ],
         temperature=0.8,
@@ -74,7 +74,7 @@ def pipeline(pdf_path: str, api_key: str, section_to_summarize=None, output_mark
 
 if __name__ == "__main__":
     PDF_PATH = "test/2sz48.pdf"
-    API_KEY = ""
+    API_KEY =os.getenv('OpenAI_API_KEY')
 
-    SECTION = "Results"  # Or None for full paper
+    SECTION = ""  # Or None for full paper
     pipeline(PDF_PATH, API_KEY, section_to_summarize=SECTION)
