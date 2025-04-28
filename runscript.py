@@ -29,13 +29,15 @@ def save_sections_to_markdown(headers, sections, output_path="Results/script_res
             f.write(f"## {header.strip()}\n\n{content.strip()}\n\n")
 
 
-def summarize_text_with_openai(text: str, api_key: str, model="gpt-4.1", max_tokens=5000) -> str:
+def summarize_text_with_openai(text: str, api_key: str, section_to_summarize=None, model="gpt-4.1", max_tokens=5000) -> str:
     client = OpenAI(api_key=api_key)
     response = client.chat.completions.create(
         model=model,
         messages=[
             {"role": "system", "content": "You are a helpful assistant."},
-            {"role": "user", "content": f"Summarize the following research paper:\n\n{text}"},
+            # {"role": "user", "content": f"Summarize the following research paper:\n\n{text}"},
+            {"role": "user", "content": f"Summarize the following text. It is from the '{section_to_summarize or 'Full Paper'}' section of a research paper. Provide a concise and non-repetitive summary:\n\n{text}"},
+
         ],
         temperature=0.8,
         max_tokens=max_tokens
@@ -64,7 +66,7 @@ def pipeline(pdf_path: str, api_key: str, section_to_summarize=None, output_mark
         with open("Results/script_result.md", "r", encoding="utf-8") as f:
             text_to_summarize = f.read()
 
-    summary = summarize_text_with_openai(text_to_summarize, api_key)
+    summary = summarize_text_with_openai(text_to_summarize, api_key, section_to_summarize)
     print(f"\n Summary of section: {section_to_summarize or 'Full Paper'}\n")
     print(summary)
     return summary
@@ -72,7 +74,7 @@ def pipeline(pdf_path: str, api_key: str, section_to_summarize=None, output_mark
 
 if __name__ == "__main__":
     PDF_PATH = "test/2sz48.pdf"
-    API_KEY = ""
+    API_KEY = "REMOVED_API_KEY"
 
     SECTION = "Results"  # Or None for full paper
     pipeline(PDF_PATH, API_KEY, section_to_summarize=SECTION)
