@@ -8,15 +8,19 @@ This project helps in automating the process of downloading research paper PDFs 
 ```bash
 osf_paper_extraction/
 │
-├── cleaning/                     # Jupyter notebooks for preprocessing datasets
+├── Notebooks/                    # Jupyter notebooks for preprocessing datasets
+├── Semantic-papers/              # Research papers downloaded from Semantic-Scholar
+├── papers1/                      # Research papers downloaded from Core-API and other resources
+├── CSVs/                         # CSVs contaiing metadata and project IDs with status.
 ├── test/                         # Folder for storing test PDFs
 │
-├── download.py                   # Downloads PDFs via Semantic Scholar API
+├── Download_Semantic_Papers.py   # Downloads PDFs via Semantic Scholar API
 ├── download1.py                  # Downloads PDFs via CORE API
-├── apitest.py                    # Main pipeline for OpenAI-based summarization
+├── runscript.py                  # Main pipeline for OpenAI-based summarization
+├── runAI_ML.py and runGemini.py  # Pipelines for summarization using other free API resources.
 ├── rundocling.py                 # (Optional) Other experimental logic
-├── output_sections.md            # Stores extracted sections in markdown format
-├── testing.ipynb                 # Notebook for experiments or debugging
+├── Results                       # Stores extracted sections in markdown format
+├── Report.ipynb                  # Notebook for documentation of findings in the process.
 ├── Requirements.txt              # Python dependencies
 └── README.md                     # Project documentation
 ```
@@ -33,11 +37,11 @@ osf_paper_extraction/
 ## To Run
   ```bash
   python runscript.py
-    # By default, it loads a test PDF (test/2sz48.pdf) and summarizes the "results" section, it can be edited to any section or full paper
+    # By default, it loads a test PDF (test/2sz48.pdf) and summarizes the "Results" section, it can be edited to any section or full paper
   ```
     
 ## Notes  
-Rate Limiting: Both APIs may enforce rate limits. The scripts implement exponential backoff and randomized sleep to reduce the chance of hitting limits.
+Rate Limiting: Both APIs while downloading Research Papers may enforce rate limits. The scripts implement exponential backoff and randomized sleep to reduce the chance of hitting limits.
 
 PDF Availability: Not all titles will have a downloadable PDF. These cases are marked in the status column of the output CSV.
 
