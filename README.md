@@ -32,8 +32,8 @@ osf_paper_extraction/
 
 ## To Run
   ```bash
-  python apitest.py
-    # By default, it loads a test PDF (test/2sz48.pdf) and summarizes the "Conclusions" section.
+  python runscript.py
+    # By default, it loads a test PDF (test/2sz48.pdf) and summarizes the "results" section, it can be edited to any section or full paper
   ```
     
 ## Notes  
