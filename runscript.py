@@ -74,7 +74,7 @@ def pipeline(pdf_path: str, api_key: str, section_to_summarize=None, output_mark
 
 if __name__ == "__main__":
     PDF_PATH = "test/2sz48.pdf"
-    API_KEY = "REMOVED_API_KEY"
+    API_KEY = ""
 
     SECTION = "Results"  # Or None for full paper
     pipeline(PDF_PATH, API_KEY, section_to_summarize=SECTION)
