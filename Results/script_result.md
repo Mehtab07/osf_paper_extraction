@@ -951,10 +951,8 @@ quartiles used the “boxplot” command in base R.
 SUPPLEMENTARY MATERIALS
 Supplementary material for this article is available at http://advances.sciencemag.org/cgi/
 content/full/7/19/eabf9776/DC1
-
-## REFERENCES AND NOTES
-
-1.	 N. L. Boivin, M. A. Zeder, D. Q. Fuller, A. Crowther, G. Larson, J. M. Erlandson, T. Denham, 
+REFERENCES AND NOTES
+	 1.	 N. L. Boivin, M. A. Zeder, D. Q. Fuller, A. Crowther, G. Larson, J. M. Erlandson, T. Denham, 
 M. D. Petraglia, Ecological consequences of human niche construction: Examining 
 long-term anthropogenic shaping of global species distributions. Proc. Natl. Acad. Sci. 
 U.S.A. 113, 6388–6396 (2016).

@@ -1,75 +1,57 @@
 import os
-import re
-import fitz  # PyMuPDF
-from google import genai
-from openai import OpenAI
+import google.generativeai as genai
 from dotenv import load_dotenv
 
 load_dotenv()
 
-def extract_text_from_pdf(pdf_path: str) -> str:
-    doc = fitz.open(pdf_path)
-    full_text = "".join(page.get_text() for page in doc)
-    doc.close()
-    return full_text
+def extract_log_file(log_path: str) -> str:
+    with open(log_path, "r", encoding="utf-8") as f:
+        return f.read().strip()
 
-
-def split_text_into_sections(text: str, headers=None) -> list:
-    if headers is None:
-        headers = [
-            "Abstract", "Introduction", "Related Work", "Method", "Methods","Limitations",
-            "Results", "Discussion", "Conclusion","Conclusions", "References"
-        ]
-    pattern = "|".join([rf"\n\s*{header}\s*\n" for header in headers])
-    sections = re.split(pattern, text, flags=re.IGNORECASE)
-    headers_found = re.findall(pattern, text, flags=re.IGNORECASE)
-    section_dict = {header.strip(): content.strip() for header, content in zip(headers_found, sections[1:])}
-    return section_dict
-
-
-def save_sections_to_markdown(headers, sections, output_path="Results/script_result.md"):
-    with open(output_path, "w", encoding="utf-8") as f:
-        for header, content in zip(headers, sections):
-            f.write(f"## {header.strip()}\n\n{content.strip()}\n\n")
-
-
-def summarize_text_with_openai(text: str, api_key: str, section_to_summarize=None, max_tokens=5000) -> str:
-    client = genai.Client(api_key=api_key)
-    response = client.models.generate_content(
-    model="gemini-2.0-flash", contents=f"Summarize the following text. It is from the '{section_to_summarize or 'Full Paper'}' section of a research paper. Provide a concise and non-repetitive summary:\n\n{text}")
+def compare_pdf_and_log_with_gemini(pdf_path: str, log_path: str, api_key: str, section_to_summarize: str = None) -> str:
+    # Configure Gemini
+    genai.configure(api_key=api_key)
     
+    # Initialize the model
+    model = genai.GenerativeModel("gemini-1.5-flash")
+
+    # Upload both files
+    pdf_file = genai.upload_file(pdf_path, mime_type="application/pdf")
+    log_file = genai.upload_file(log_path, mime_type="text/plain") 
+
+    # Prepare the comparison prompt
+    prompt = """
+    You are a research analysis AI. Compare the R script execution results (from the log file) 
+    with the results reported in the research paper (PDF). Specifically analyze:
+
+    1. Numerical results - identify any mismatches between calculated and reported values
+    2. Missing results - check if any computed results are missing from the paper or vice versa
+    3. Methodological consistency - verify if methods described match the implementation
+    4. Statistical significance - note any discrepancies in reported significance
+
+    Provide a detailed comparison with specific examples where they exist.
+    """
+
+    # Generate the comparison
+    response = model.generate_content([prompt, pdf_file, log_file])
+
     return response.text
-
-def pipeline(pdf_path: str, api_key: str, section_to_summarize=None, output_markdown="output_sections.md"):
-    # 1. Extract text
-    text = extract_text_from_pdf(pdf_path)
-
-    # 2. Split into sections
-    section_dict = split_text_into_sections(text)
-
-    # 3. Save to markdown
-    save_sections_to_markdown(section_dict.keys(), section_dict.values())
-
-    # 4. Read and summarize
-    if section_to_summarize:
-        section_content = section_dict.get(section_to_summarize)
-        if not section_content:
-            print(f" Section '{section_to_summarize}' not found.")
-            return
-        text_to_summarize = f"{section_to_summarize}\n\n{section_content}"
-    else:
-        with open("Results/script_result.md", "r", encoding="utf-8") as f:
-            text_to_summarize = f.read()
-
-    summary = summarize_text_with_openai(text_to_summarize, api_key, section_to_summarize)
-    print(f"\n Summary of section: {section_to_summarize or 'Full Paper'}\n")
-    print(summary)
-    return summary
-
 
 if __name__ == "__main__":
     PDF_PATH = "test/7h94n.pdf"
-    API_KEY = os.getenv("Gemini_API_KEY")  # Replace with your OpenAI API key
+    LOG_PATH = "test/7h94n_execution.log"
+    API_KEY = os.getenv("Gemini_API_KEY")
 
-    SECTION = ""  # Or None for full paper
-    pipeline(PDF_PATH, API_KEY, section_to_summarize=SECTION)
+    # Generate output filename based on input PDF
+    pdf_code = os.path.splitext(os.path.basename(PDF_PATH))[0]
+    OUTPUT_TXT = f"{pdf_code}_comparison_Gemini.txt"
+
+    # Run comparison
+    comparison = compare_pdf_and_log_with_gemini(PDF_PATH, LOG_PATH, API_KEY)
+
+    # Save results
+    with open(OUTPUT_TXT, "w", encoding="utf-8") as f:
+        f.write(comparison)
+    
+    print(f"\nComparison saved to {OUTPUT_TXT}")
+    print(comparison)
