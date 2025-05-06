@@ -38,13 +38,14 @@ def compare_pdf_and_log_with_gemini(pdf_path: str, log_path: str, api_key: str, 
     return response.text
 
 if __name__ == "__main__":
-    PDF_PATH = "test/9qbwv.pdf"
-    LOG_PATH = "test/9qbwv_execution.log"
+    PDF_PATH = "test/7h94n.pdf"
+    LOG_PATH = "test/7h94n_execution.log"
     API_KEY = os.getenv("Gemini_API_KEY")
 
     # Generate output filename based on input PDF
+    os.makedirs("comparisons", exist_ok=True)
     pdf_code = os.path.splitext(os.path.basename(PDF_PATH))[0]
-    OUTPUT_TXT = f"{pdf_code}_comparison_gemini.txt"
+    OUTPUT_TXT = f"comparisons/{pdf_code}_comparison_gemini.txt"
 
     # Run comparison
     comparison = compare_pdf_and_log_with_gemini(PDF_PATH, LOG_PATH, API_KEY)

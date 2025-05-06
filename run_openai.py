@@ -24,7 +24,7 @@ def split_text_into_sections(text: str, headers=None) -> list:
     section_dict = {header.strip(): content.strip() for header, content in zip(headers_found, sections[1:])}
     return section_dict
 
-def save_sections_to_markdown(headers, sections, output_path="Results/script_result.md"):
+def save_sections_to_markdown(headers, sections, output_path):
     with open(output_path, "w", encoding="utf-8") as f:
         for header, content in zip(headers, sections):
             f.write(f"## {header.strip()}\n\n{content.strip()}\n\n")
@@ -54,7 +54,8 @@ def pipeline(pdf_path: str, api_key: str,output_txt, section_to_summarize=None, 
     section_dict = split_text_into_sections(text)
 
     # 3. Save to markdown
-    save_sections_to_markdown(section_dict.keys(), section_dict.values())
+    markdown_path = f"results/{pdf_code}_markdown.md"
+    save_sections_to_markdown(section_dict.keys(), section_dict.values(),output_path=markdown_path)
 
     # 4. Prepare content to summarize
     if section_to_summarize:
@@ -64,7 +65,7 @@ def pipeline(pdf_path: str, api_key: str,output_txt, section_to_summarize=None, 
             return
         text_to_summarize = f"{section_to_summarize}\n\n{section_content}"
     else:
-        with open("Results/script_result.md", "r", encoding="utf-8") as f:
+        with open(markdown_path, "r", encoding="utf-8") as f:
             text_to_summarize = f.read()
 
     # 5. Append log content if available
@@ -95,11 +96,12 @@ def pipeline(pdf_path: str, api_key: str,output_txt, section_to_summarize=None, 
     return summary
 
 if __name__ == "__main__":
-    PDF_PATH = "test/9qbwv.pdf"
-    LOG_PATH = "test/9qbwv_execution.log"
+    PDF_PATH = "test/7h94n.pdf"
+    LOG_PATH = "test/7h94n_execution.log"
     API_KEY = os.getenv('OpenAI_API_KEY')
 
     SECTION = ""  # Leave empty or set section name like "Results"
+    os.makedirs("comparisons", exist_ok=True)
     pdf_code = os.path.splitext(os.path.basename(PDF_PATH))[0]
-    OUTPUT_TXT = f"{pdf_code}_comparison_openai.txt"
+    OUTPUT_TXT = f"comparisons/{pdf_code}_comparison_openai.txt"
     pipeline(PDF_PATH, API_KEY, section_to_summarize=SECTION, log_path=LOG_PATH, output_txt=OUTPUT_TXT)
