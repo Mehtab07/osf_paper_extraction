@@ -44,7 +44,7 @@ if __name__ == "__main__":
 
     # Generate output filename based on input PDF
     pdf_code = os.path.splitext(os.path.basename(PDF_PATH))[0]
-    OUTPUT_TXT = f"{pdf_code}_comparison_Gemini.txt"
+    OUTPUT_TXT = f"{pdf_code}_comparison_gemini.txt"
 
     # Run comparison
     comparison = compare_pdf_and_log_with_gemini(PDF_PATH, LOG_PATH, API_KEY)

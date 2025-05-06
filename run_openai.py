@@ -101,5 +101,5 @@ if __name__ == "__main__":
 
     SECTION = ""  # Leave empty or set section name like "Results"
     pdf_code = os.path.splitext(os.path.basename(PDF_PATH))[0]
-    OUTPUT_TXT = f"{pdf_code}_comparison_OpenAI.txt"
+    OUTPUT_TXT = f"{pdf_code}_comparison_openai.txt"
     pipeline(PDF_PATH, API_KEY, section_to_summarize=SECTION, log_path=LOG_PATH, output_txt=OUTPUT_TXT)
