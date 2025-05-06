@@ -76,5 +76,5 @@ if __name__ == "__main__":
     PDF_PATH = "test/2sz48.pdf"
     API_KEY = os.getenv('AI_ML_API_KEY')
 
-    SECTION = "Results"  # Or None for full paper
+    SECTION = ""  # Or None for full paper
     pipeline(PDF_PATH, API_KEY, section_to_summarize=SECTION)
