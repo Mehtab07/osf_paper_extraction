@@ -38,8 +38,8 @@ def compare_pdf_and_log_with_gemini(pdf_path: str, log_path: str, api_key: str, 
     return response.text
 
 if __name__ == "__main__":
-    PDF_PATH = "test/7h94n.pdf"
-    LOG_PATH = "test/7h94n_execution.log"
+    PDF_PATH = "test/9qbwv.pdf"
+    LOG_PATH = "test/9qbwv_execution.log"
     API_KEY = os.getenv("Gemini_API_KEY")
 
     # Generate output filename based on input PDF

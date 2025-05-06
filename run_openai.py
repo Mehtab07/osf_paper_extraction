@@ -95,8 +95,8 @@ def pipeline(pdf_path: str, api_key: str,output_txt, section_to_summarize=None, 
     return summary
 
 if __name__ == "__main__":
-    PDF_PATH = "test/7h94n.pdf"
-    LOG_PATH = "test/7h94n_execution.log"
+    PDF_PATH = "test/9qbwv.pdf"
+    LOG_PATH = "test/9qbwv_execution.log"
     API_KEY = os.getenv('OpenAI_API_KEY')
 
     SECTION = ""  # Leave empty or set section name like "Results"

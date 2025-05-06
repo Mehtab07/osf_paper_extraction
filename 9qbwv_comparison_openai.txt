@@ -1,0 +1,91 @@
+Summary of comparison between R Script Results and Research Paper Results:
+
+Certainly. Below is a detailed, academically rigorous comparison and critique of the R script execution results and the results section of the research paper, as per your request.
+
+---
+
+## 1. Mismatches between Results Reported and Those Computed
+
+**A. R Script Execution Summary**
+- The R script execution summary shows that the helper.R file and the associated compilation of Fortran/C code objects were successful.
+- However, the summary ends with a critical error:  
+  ```
+  Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+    namespace ‘Matrix’ 1.4-1 is already loaded, but >= 1.6.0 is required
+  ...
+  Execution halted
+  ```
+- This means the actual R code failed to execute any statistical analyses or produce results due to a version mismatch of the ‘Matrix’ package and thus halted before any data analysis took place.
+
+**B. Research Paper Results Section**
+- The paper reports a full suite of statistical analyses:
+    - Mixed-effect logistic regressions and linear regressions (with specified models, fixed/random effects, and detailed coefficients and p-values).
+    - Percentages, odds ratios, confidence intervals.
+    - Figures (correlations, regression coefficients).
+    - Post hoc analyses and sensitivity checks (e.g., using McCall’s transformation, excluding categories with uncertain data).
+
+**Mismatch:**  
+**The R scripts did not execute any of the statistical analyses reported in the results section due to a critical package dependency error.** There is no evidence in the R execution log that any result, model, or summary statistic (even intermediate) was calculated. The only output is from code compilation, prior to any data analysis.
+
+---
+
+## 2. Missing Results in Either Side
+
+**A. Missing in R Script Results**
+- All core results are missing:
+    - No output of statistical models.
+    - No model summaries, coefficients, or diagnostics.
+    - No percentages, means, or effect sizes.
+    - No plots, tables, or figures.
+    - No evidence of data having been loaded, preprocessed, or analyzed.
+
+**B. Missing in Paper Results**
+- The paper provides a comprehensive results section; however, given the script execution, **all reported results must have been generated either in a different environment or at a time when the R environment was correctly configured** (i.e., with a compatible ‘Matrix’ package), or are possibly speculative.
+
+---
+
+## 3. Overall Consistency and Possible Explanations if Mismatches Exist
+
+**Consistency:**  
+**There is a fundamental inconsistency:**  
+- The reported results in the paper could not have been produced by the R script as executed in the provided summary, because the script never reached the analysis phase due to a fatal package version error.
+
+**Possible Explanations for the Discrepancy:**
+1. **Environmental Differences:**  
+   - The paper’s analyses may have been conducted on a local machine or an environment with the correct version of ‘Matrix’, and only the reproducibility/archival attempt failed due to the package issue.
+2. **Outdated or Incomplete Scripts:**  
+   - The scripts provided for reproducibility may be out of sync with those used for the final analyses.
+3. **Reporting Error or Oversight:**  
+   - The results section may have been finalized before the R environment was broken, and the code was not rerun prior to submission or review.
+4. **Speculative or Placeholder Results:**  
+   - In the absence of any evidence from the script output, one must consider—albeit as a last resort—that the results presented are not directly tied to code execution, but are hypothetical or placeholders.
+
+**Additional Note:**
+- The R output includes only compiler and library loading logs, and the error is with a foundational dependency (‘Matrix’), which is required for nearly all mixed-model analyses in R (e.g., via lme4, glmmTMB, etc.). No statistical output or warnings about data, models, or figures can be found, which strongly indicates that the results in the paper are not a product of this failed execution.
+
+---
+
+## Summary Table
+
+| Aspect                  | R Script Results | Paper Results | Consistency/Notes                               |
+|-------------------------|------------------|---------------|------------------------------------------------|
+| Compilation             | Success          | -             | NA                                             |
+| Package loading         | Failure (Matrix) | -             | Fatal error prevents any data analysis         |
+| Statistical analyses    | Missing          | Present       | Inconsistent; paper analyses not reproduced    |
+| Figures/tables          | Missing          | Present       | Not produced in current R execution           |
+| Data/model outputs      | Missing          | Present       | Not produced in current R execution           |
+
+---
+
+## Conclusion and Recommendations
+
+**Conclusion:**  
+**There is a total mismatch:** the results reported in the paper cannot have come from the R script execution as summarized, because no analysis was run due to environment failure.
+
+**Recommendations:**
+- **For the authors:** Ensure the computational environment for reproducibility matches the environment used for the final analyses. All code dependencies, especially for core libraries such as ‘Matrix’, must be satisfied.
+- **For reviewers/readers:** Treat the reported results with caution unless the analysis can be successfully reproduced from code and data in a compatible environment.
+- **For future reproducibility:** Consider Docker/Singularity or Renv/packrat snapshots to ensure package versions are preserved for replication.
+
+**Final Note:**  
+**Until the R environment is fixed and scripts are rerun, the evidentiary chain from data to conclusions in the paper is broken.** The analyses, regardless of their detail and apparent rigor, cannot be vouched for based on the current computational record.
