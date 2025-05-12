@@ -86,18 +86,18 @@ def pipeline(pdf_path: str, api_key: str,output_txt, section_to_summarize=None, 
         )
 
     # 6. Summarize
-    # summary = summarize_text_with_openai(text_to_summarize, api_key, section_to_summarize)
+    summary = summarize_text_with_openai(text_to_summarize, api_key, section_to_summarize)
 
-    # with open(output_txt, "w", encoding="utf-8") as f:
-    #     f.write(f"Summary of comparison between R Script Results and Research Paper Results:\n\n")
-    #     f.write(summary)
+    with open(output_txt, "w", encoding="utf-8") as f:
+        f.write(f"Summary of comparison between R Script Results and Research Paper Results:\n\n")
+        f.write(summary)
     
-    # print(f"\nSummary saved to {output_txt}")
-    # return summary
+    print(f"\nSummary saved to {output_txt}")
+    return summary
 
 if __name__ == "__main__":
-    PDF_PATH = "test/9qbwv.pdf"
-    LOG_PATH = "test/9qbwv_execution.log"
+    PDF_PATH = "test/ns4h9.pdf"
+    LOG_PATH = "test/ns4h9_execution.log"
     API_KEY = os.getenv('OpenAI_API_KEY')
 
     SECTION = ""  # Leave empty or set section name like "Results"

@@ -1,0 +1,169 @@
+Summary of comparison between R Script Results and Research Paper Results:
+
+Here is a rigorous, line-by-line comparison and analysis between the **R script results summary** and the **results section of the research paper** as requested.
+
+---
+
+## 1. Mismatches between Results Reported and Those Computed
+
+### 1.1. Meta-Analytic Effect Size (Random Effects Model)
+
+- **R Script Output**:  
+  - Hedges’ g = 0.8534  
+  - SE = 0.2547  
+  - 95% CI: [0.3541, 1.3527]  
+  - 95% PI: [-0.8948, 2.6017]  
+  - I^2 = 90.06%  
+  - Tau^2 = 0.7307, Tau = 0.8548  
+  - Q(12) = 89.7806, p < .0001
+
+- **Paper Results (Section 3.2.2)**:  
+  - "Hedge’s g = .85, p < 0.001, 95% CI[.35, 1.35], 95% PI[-.89, 2.60]."  
+  - "heterogeneity was significant Q(12) = 89.78, p <.0001, with high values of the I2 index (I2 = 90.06%), t = 0.85 and PI[-.89,2.60]."
+
+**Assessment**:
+- All numbers match to two decimal places (minor rounding, e.g., 0.8548 → 0.85, 0.3541 → .35, etc.).
+- Q value, p-value, I^2, tau, and prediction intervals are all consistent.
+- The direction and interpretation of results are identical.
+
+**No mismatches found.**
+
+---
+
+### 1.2. Moderation Analysis (Type of Synchrony)
+
+- **R Script Output**:  
+  - Test of Moderators: QM(df = 1) = 0.6403, p-val = 0.4236  
+  - Intrcpt (instructed): 0.6303 (SE = 0.3802, p = 0.0973)  
+  - synch_typespontaneous: 0.4157 (SE = 0.5195, p = 0.4236)
+
+- **Paper Results (Section 3.2.2)**:  
+  - "No statistically significant results emerged: QM(1) = 0.64, p = 0.42."
+
+**Assessment**:
+- QM and p-values are numerically consistent.
+- The interpretative summary (no significant moderation) matches.
+
+**No mismatches found.**
+
+---
+
+### 1.3. Sensitivity Analysis (Leave-One-Out)
+
+- **R Script Output and Table**:  
+  - Leave-one-out Hedges’ g ranges from 0.69 (Liu et al., 2021 removed) to 0.90; I^2, tau, CI, and PI all matching across both the R output and Table 5 in the paper.
+  - Notably, Liu et al., 2021 is an influential case, reducing the effect size and heterogeneity to zero.
+
+- **Paper Results (Section 3.2.3, Table 5)**:  
+  - Numbers in Table 5 for sensitivity analysis match those in the R output.
+
+**No mismatches found.**
+
+---
+
+### 1.4. Publication Bias/Trim-and-Fill
+
+- **R Script Output**:  
+  - Estimated number of missing studies: 5 (SE = 2.2785)
+  - After trim-and-fill: Hedges’ g = 1.1665, SE = 0.2233, 95% CI: [0.7288, 1.6041], I^2 = 89.40%, tau=0.8757, Q(df=17)=130.3017, p-val < .0001
+
+- **Paper Results (Section 3.2.3)**:  
+  - "When accounting for publication bias via the trim-and-fill method, an even larger effect size (Hedge’s g = 1.17, p < 0.001, 95% CI[.73, 1.60]) was observed. Also, significant heterogeneity emerged Q(17)=130.30, p<.0001, with high values of the I2 index (I2 = 89.40%), t = 0.88 and PI [-.60, 2.94]."
+
+**Assessment**:
+- All numbers match within expected rounding.
+- Slight difference in reporting of the prediction interval: R output gives [-0.8948, 2.6017]; paper says [-.60, 2.94]. The [-.60, 2.94] is likely from the trim-and-fill model rather than the unadjusted model. The R output does not explicitly list this PI for the adjusted model, but the other numbers match.
+
+**Possible minor reporting imprecision in PI, but overall consistent.**
+
+---
+
+### 1.5. Meta-Analysis with Different Correlations
+
+- **R Script Output**:  
+  - Not shown in the script summary directly, but the paper reports that results for r=.30 and r=.70 are in SM.
+
+- **Paper Results (Table 4)**:  
+  - r = .30: g = 0.85, I^2 = 92.19%, t = 0.86, CI [0.35;1.35], PI [-0.91;2.61]
+  - r = .50: g = 0.85, I^2 = 90.06%, t = 0.85, CI [0.35;1.35], PI [-0.89;2.60]
+  - r = .70: g = 0.86, I^2 = 88.11%, t = 0.85, CI [0.36;1.36], PI [-0.88;2.59]
+
+**Assessment**:
+- The main effect size and heterogeneity indices are consistent with the description in the script and paper.
+- The R output summary does not show these directly, but the paper is transparent about this being in SM.
+
+**No evidence of inconsistency.**
+
+---
+
+## 2. Any Missing Results in Either Side
+
+**Paper Reports All Key Results from the R Output**
+- All key statistics from the R output (effect size, CIs, PIs, I^2, tau, Q, sensitivity, moderator analysis, publication bias) are found, with matching values, in the main text, tables, and figures of the paper.
+
+**R Output Has One Element Not Explicitly in Paper**
+- The R output reports:
+  - "Estimated number of missing studies on the right side: 5 (SE = 2.2785)"
+- In the paper, this is not stated numerically; rather, it notes the result of the trim-and-fill but does not quote the actual imputed number of missing studies or its SE.
+- The full prediction interval for the trim-and-fill model is not given in the R output, but the paper reports a PI of [-.60, 2.94] for the adjusted model.
+
+**Minor details missing from one side or the other, but not of substantive importance.**
+
+---
+
+## 3. Overall Consistency and Possible Explanations if Mismatches Exist
+
+### Consistency
+
+- **The paper’s reported statistics faithfully reflect the R output.**  
+- Any rounding differences (e.g., 0.3541 vs .35, 0.8534 vs .85) are well within reporting standards.
+- All methodological details (e.g., meta-analytic models, sensitivity analyses, handling of moderator, publication bias, correlation assumption checks) are described and match code output.
+- Leave-one-out and Cook’s distance diagnostics are described and match the output.
+- The interpretation (e.g., high heterogeneity, large effect, no moderator effect) is supported by the numbers.
+- The paper references the Supplementary Material for analyses not shown in the main R output, which is an acceptable practice.
+
+### Minor Issues
+
+- The only numerical output not directly quoted in the paper is the "Estimated number of missing studies on the right side: 5 (SE = 2.2785)", but the implication and result are discussed.
+- Prediction intervals for the adjusted model (trim-and-fill) are not explicitly listed in the R output; the paper gives [-.60, 2.94].
+
+### Possible Explanations for Minor Variations
+
+- **Rounding practices** for reporting in the text (e.g., CI lower/upper bounds, tau, effect size).
+- **Space constraints** in the main text may limit some less central statistics (e.g., number of missing studies).
+- **Different display conventions** for prediction intervals in R and manuscript (though CIs match and the direction is correct).
+
+---
+
+## 4. Additional Observations
+
+- **Descriptive Table Consistency**: The sample sizes, country, M/F ratios, means, and all other descriptive statistics listed in the R output match exactly those reported in Table 3 in the paper.
+- **Leave-One-Out Table**: Estimates and intervals are identical.
+- **Handling of Influential Study (Liu et al., 2021)**: Both the R output and the paper note its influence and the change in heterogeneity upon its removal.
+
+---
+
+## Summary Table
+
+| Result/Statistic                      | R Output      | Paper Report | Matched? | Notes                                                  |
+|---------------------------------------|---------------|--------------|----------|--------------------------------------------------------|
+| Main Effect Size (g, CI, PI, p-val)   | Yes           | Yes          | Yes      | All numbers match (rounding only)                      |
+| Heterogeneity (Q, I^2, tau)           | Yes           | Yes          | Yes      | Precise match (rounding only)                          |
+| Moderator Analysis (QM, p)            | Yes           | Yes          | Yes      | Precise match                                          |
+| Sensitivity/Leave-One-Out Analysis    | Yes           | Yes          | Yes      | Precise match                                          |
+| Publication Bias (trim-and-fill)      | Yes           | Yes          | Yes      | All central numbers match                              |
+| Prediction Interval (trim-and-fill)   | Implicit      | Yes          | Mostly   | Minor possible reporting difference, not critical       |
+| Number of missing studies (trim/fill) | Yes           | No           | No       | Not quoted in paper, but not critical                  |
+| Meta-analyses (r=.3, .5, .7)          | Not direct    | Yes*         | N/A      | Paper reports, notes in SM, not in summarized R output |
+| Descriptive Tables                    | Yes           | Yes          | Yes      | Precise match                                          |
+
+---
+
+## **Conclusion**
+
+**The results reported in the paper are consistent with the R script execution outputs.**
+- All key effect sizes, heterogeneity statistics, confidence and prediction intervals, sensitivity analyses, and publication bias adjustments are faithfully reproduced.
+- The only minor omissions relate to the explicit number of imputed missing studies in the trim-and-fill method (reported in R, not in the paper text), and the precise PI bounds for the adjusted model (reported in the paper, not shown in the summarized R output), but these are not critical and do not affect the overall interpretation.
+- The level of detail and transparency about methodological choices in the paper is consistent with best practice, referencing supplementary materials for additional analyses.
+
+**No meaningful mismatches or missing results of substance were found. The reporting is methodologically sound, and the evidence supports the manuscript’s conclusions.**

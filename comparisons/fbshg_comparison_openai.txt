@@ -1,0 +1,116 @@
+Summary of comparison between R Script Results and Research Paper Results:
+
+Here is a detailed, rigorous comparison of the **R script results summary** and the **results presented in the paper's results section** (pages 3–12, especially Figures 1C/D and associated text):
+
+---
+
+## 1. **Mismatches Between Results Reported and Those Computed**
+
+### a. **Key Results as Described in the Paper**
+- The paper reports the following for the main example (Figure 1A):
+  - "The estimated coefficients (c1=.5, c2=-.2) satisfy the conditions c1>0 and c2<0."
+  - "The data does have a PPZ-correlation-structure (rSR=.4, rSH=.4, rRH=0)..."
+- For Figure 1B:
+  - "The coefficients (c1=.6, c2=0; see Figure 1D) do not satisfy the CRA conditions."
+- "All data with a PPZ-correlation-structure (rSR>0, rSH>0, rRH=0) has coefficients c1>0 and c2<0 (see osf.io/fbshg for the proof)."
+- In the text and note to Figure 1: "The estimated models are: Panel C: H = 0.5S – 0.2R; Panel D: H = 0.6S + 0R."
+- The reported correlations: rSR = .4, rSH = .4, rRH = 0 (for the main example).
+
+### b. **Key Results as Computed by the R Scripts**
+- From the R output:
+  - The following lines directly reflect the coefficients for the main example:
+    ```
+    [1] 0.4
+    [1] 0.4
+    [1] 0
+    (Intercept)           S           R 
+            0.0         0.5        -0.2 
+    ```
+    - This matches rSR = .4, rSH = .4, rRH = 0, and regression coefficients c1 = 0.5, c2 = -0.2.
+  - For the second case:
+    ```
+    [1] 0
+    [1] 0.6
+    [1] 0
+    (Intercept)           S           R 
+            0.0         0.6         0.0 
+    ```
+    - This matches rSR = 0, rSH = 0.6, rRH = 0, c1 = 0.6, c2 = 0.
+  - Other computed examples show similar patterns (e.g., a table with varying rSR, rSH, and the resulting c1/c2).
+
+**No mismatches** are found between the coefficients/correlations highlighted in the paper and those output by the R code for the main cases discussed.
+
+---
+
+## 2. **Any Missing Results in Either Side**
+
+### a. **R Output Not Explicitly Discussed in the Paper**
+- The R output includes a **large grid** of c1/c2 values for various (rSR, rSH) combinations, e.g.:
+  ```
+  rSR rSH    c1     c2
+  1  0.2 0.2 0.208 -0.042
+  2  0.2 0.4 0.417 -0.083
+  ...
+  15 0.8 0.6 1.667 -1.333
+  ```
+  - The paper mentions "all data with a PPZ-correlation-structure..." but does not reproduce these grids in detail; instead, it refers readers to the OSF repository.
+- The **correlation matrix** for S, R, H is shown in the R results:
+  ```
+                  S         R         H
+  S 1.0000000  0.3969643  0.8007832
+  R 0.3969643  1.0000000 -0.0019127
+  H 0.8007832 -0.0019127  1.0000000
+  ```
+  - The paper describes such a structure but does not present the raw correlation matrix in the main text.
+
+### b. **Paper Claims Not Directly Backed by R Output**
+- The paper refers to mathematical proofs and "infinitely many examples," but only gives two explicit numerical examples in the main text.
+- The R output contains additional regression model summaries (with standard errors, t-values, p-values), e.g.:
+  ```
+  (Intercept)  0.002487991 0.001540098    1.615476 0.1062109
+  S            0.952620243 0.001680568  566.844185 0.0000000
+  R           -0.381058718 0.001684935 -226.156386 0.0000000
+  ```
+  - The paper does not show these standard errors or p-values, focusing only on the sign and value of coefficients.
+
+---
+
+## 3. **Overall Consistency and Possible Explanations for Any Mismatches**
+
+### a. **Consistency**
+- All key numerical results (correlations and regression coefficients) match precisely between the paper and the R script output.
+- The logic described in the paper regarding the CRA approach, the relationship of S, R, and H, and the detection of S-R patterns is directly mirrored by the code outputs.
+- The specific coefficient values for illustrative cases are perfectly consistent across both sources.
+
+### b. **Minor Omissions, Not Contradictions**
+- The R output contains more *detailed grids* and complete correlation matrices not exhaustively presented in the paper, but the paper clearly states these are available in supplementary/OSF materials.
+- The paper does not include standard errors or detailed regression summaries (beyond coefficients), but this is standard for summary publication; there is no contradiction.
+
+### c. **Explanation for Approach**
+- The paper's approach is to present only the most illustrative, theoretically-relevant examples in the main text, referring the reader to OSF and code for the exhaustive grids/simulations.
+- The R code's additional output (detailed grids, correlation matrices, regression summaries) supports the paper's claim of generalizability across many parameter settings, which is consistent with its statements.
+
+---
+
+## **Summary Table**
+
+| Result Type            | In R Output | In Paper | Consistent? | Notes                                                                      |
+|------------------------|-------------|----------|-------------|----------------------------------------------------------------------------|
+| Main coefficients      | Yes         | Yes      | Yes         | Exact match (e.g., c1 = 0.5, c2 = -0.2 for rSR=.4, rSH=.4, rRH=0)          |
+| Main correlations      | Yes         | Yes      | Yes         | Exact match (rSR, rSH, rRH)                                                |
+| Regression details     | Yes         | Partial  | Yes         | SEs, t, p in R only; not in paper, but main values used in text             |
+| Extensive simulation   | Yes         | No       | N/A         | Paper refers reader to supplement; not a contradiction                      |
+| Correlation matrices   | Yes         | No       | N/A         | Paper describes structure; R output gives actual matrix                      |
+| Suppressor effect grid | Yes         | No       | N/A         | Paper discusses pattern, not every value; directs to OSF for details         |
+| Claims of generality   | Yes         | Yes      | Yes         | Both claim and show generality via code/supplemental illustration           |
+
+---
+
+## **Conclusion**
+
+**There are no mismatches between the results reported in the paper and those generated by the R scripts for the key illustrative examples.**  
+- The script output is more detailed and exhaustive than the main text but is entirely consistent with the paper's claims and values.
+- The paper accurately reports coefficients and correlations for its central examples.
+- Any results in the R output not shown in the main text are referenced as being available in supplementary material/OSF, thus not omitted but delegated.
+
+**No discrepancies requiring explanation are found. The reporting is methodologically sound and the paper's central empirical claims are fully supported by the R code outputs.**

@@ -1,0 +1,116 @@
+Summary of comparison between R Script Results and Research Paper Results:
+
+Here is a rigorous, evidence-based comparison of the **R script results summary** and the **results as reported in the research paper**, with attention to your three requested points: mismatches, omissions, and overall consistency.
+
+---
+
+## 1. Mismatches between results reported and those computed
+
+### R Script Results Summary
+
+```
+[2025-05-06 14:38:46] [d4hjq] [R EXECUTION] File: d4hjq_src/02_parameter_estimation.R
+[2025-05-06 14:38:46] [d4hjq] [R EXECUTION] Execution Successful:
+[1] 71
+[1] 1
+
+[2025-05-06 14:38:46] [d4hjq] [R EXECUTION] ========================================
+[2025-05-06 14:38:46] [d4hjq] [R EXECUTION] ⏳ Total execution time for project d4hjq: 1.04 seconds
+```
+
+- The script runs a file named **02_parameter_estimation.R** and outputs two numbers: **71** and **1** (from two consecutive `[1]` outputs).
+- No error messages; execution is successful.
+
+### Paper Results Section
+
+- The Results section reports descriptive and inferential statistics about sentiment analysis (% positive/negative sentences), keyword frequencies, and the results of a t-test for sentiment differences between incumbents and opposition (with reported p-values: p = 0.04 for positive sentiment; p = 0.1 for negative sentiment, with one-tailed p = 0.05).
+- The results also include detailed tables of data, e.g., the number of manifestos, years, sentences, percentages, and frequency analysis.
+
+#### **Direct Comparison**
+
+- **The outputs `[1] 71` and `[1] 1` do not appear anywhere in the text or tables of the paper.**
+- There is no mention in the results section (or appendix tables) of a number 71 that could correspond to, for example, a parameter estimate, count, or statistical result (apart from frequency counts for words, but they are context-specific and not labeled as "parameter estimation").
+- The script file name, **02_parameter_estimation.R**, suggests estimation of model parameters (likely for the t-test), but the output does not match reported p-values, t-statistics, or means.
+
+**Conclusion:**  
+There is a **clear mismatch** between the R script output (71 and 1) and any specific result reported in the paper's results section.
+
+---
+
+## 2. Missing Results in Either Side
+
+### Results in the Paper but Not in R Script Output
+
+- The paper reports:
+  - Percentages of positive/negative sentences per manifesto per year and party
+  - Changes in sentiment between elections
+  - t-test results for differences in mean sentiment between incumbent and opposition parties, with specific p-values
+  - Detailed keyword and frequency analysis tables
+
+None of these results are present in the R script summary output (which only reports two numeric values, 71 and 1).
+
+### Results in R Script Output but Not in the Paper
+
+- The R script output of `71` and `1` is not explained, referred to, or contextualized anywhere in the paper.
+- There is no mention of a "parameter estimate" with value 71 or 1.
+- There is no explanation for the use of these numbers, nor are they used to support any statistical conclusion.
+
+---
+
+## 3. Overall Consistency and Possible Explanations for Mismatches
+
+### Overall Consistency
+
+- **There is a lack of direct correspondence** between the specific R script execution output and the results cited in the paper.
+- The R script output suggests the running of a parameter estimation routine, but the only results surfaced are two numbers, which are not integrated into the reported analyses, tables, or narrative.
+
+### Possible Explanations
+
+1. **Reporting/Script Discrepancy**:
+   - The script may not be the one that generates the published results. The numbers could be intermediary, diagnostic, or debugging outputs, not meant for inclusion in the final results.
+   - The main analyses (sentiment calculations, t-test, keyword counts) may have been conducted in a different script or environment (possibly Python, as the paper focuses on Python-based NLP methods), and not in this R script.
+
+2. **Omitted Context or Mapping**:
+   - If the number **71** refers to a quantity used in the analysis (e.g., total positive sentences in a subset, or an intermediate calculation), the paper does not make this explicit, nor does it present the number in a way that would allow mapping.
+
+3. **Update/Migration Issue**:
+   - The execution date is in 2025, while the paper seems finalized in 2020, suggesting the script (and possibly the data or analysis workflow) could have changed since the publication.
+
+4. **Reproducibility Gap**:
+   - The paper claims full reproducibility and refers to an OSF repository, but the provided script and output do not allow replication of the main inferential findings (t-test p-values, sentiment means). This is a potential methodological problem, suggesting that the computational pipeline used for publication is either missing or not properly documented.
+
+---
+
+## **Summary Table**
+
+| Aspect                   | R Script Output         | Paper Results Section      | Consistency?             |
+|--------------------------|------------------------|---------------------------|--------------------------|
+| Sentiment analysis (%)   | Not present            | Present                   | Not consistent           |
+| t-test p-values          | Not present            | Present                   | Not consistent           |
+| Keyword frequencies      | Not present            | Present                   | Not consistent           |
+| Parameter estimation     | `[1] 71`, `[1] 1`      | Not present               | Not consistent           |
+| Manifesto/year counts    | Not present            | Present                   | Not consistent           |
+
+---
+
+## **Conclusion**
+
+**1. Mismatches:**  
+The R script outputs (71, 1) do not appear in the paper’s results, and none of the paper’s reported statistical findings are present in the R script output.
+
+**2. Missing Results:**  
+The R script output omits all the key findings (percentages, t-tests, frequencies, etc.) detailed in the paper, and the specific outputs of the R script are not referenced or explained in the paper.
+
+**3. Overall Consistency:**  
+There is a significant **methodological inconsistency** between the code execution summary and the reporting of results in the paper. The output from the R script does not support, explain, or correspond to the evidence presented in the results section. The most plausible explanation is that the R script shown either does not correspond to the final analyses reported in the paper (possibly an unfinished or ancillary script) or that the main analysis was conducted in a different environment altogether.
+
+**Recommendation:**  
+For full methodological transparency and reproducibility, the authors should clarify:
+- What the outputs `71` and `1` represent;
+- Which scripts (and in what language/environment) generated the key findings reported in the paper;
+- Ensure that the code and outputs provided correspond directly to the published results, especially the inferential statistics, to meet rigorous academic standards.
+
+---
+
+**In summary:**  
+**There is a clear disconnect between the R script output and the results reported in the paper; the results are neither consistent nor mutually explanatory, and there are missing links in reproducibility and documentation.**
